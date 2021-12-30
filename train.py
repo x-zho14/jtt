@@ -188,7 +188,7 @@ def train(
         adjustments = np.array(adjustments * dataset["train_data"].n_groups)
     else:
         adjustments = np.array(adjustments)
-
+    print("adjustments", adjustments, dataset["train_data"].n_groups)
     train_loss_computer = LossComputer(
         criterion,
         loss_type=args.loss_type,
