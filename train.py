@@ -182,6 +182,8 @@ def train(
     # process generalization adjustment stuff
     adjustments = [float(c) for c in args.generalization_adjustment.split(",")]
     assert len(adjustments) in (1, dataset["train_data"].n_groups)
+
+    print("adjustments", adjustments)
     if len(adjustments) == 1:
         adjustments = np.array(adjustments * dataset["train_data"].n_groups)
     else:
