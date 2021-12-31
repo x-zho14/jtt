@@ -37,7 +37,7 @@ class LossComputer:
         self.group_counts = dataset.group_counts().cuda()
         self.group_frac = self.group_counts / self.group_counts.sum()
         self.group_str = dataset.group_str
-
+        print("self.group_str", self.group_str)
         if self.loss_type == "joint_dro":
             # Joint DRO reg should be 0.
             assert joint_dro_alpha is not None
