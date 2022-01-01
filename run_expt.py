@@ -67,16 +67,6 @@ def main(args):
     # Should probably not be upweighting if folds are specified.
     assert not args.fold or not args.up_weight
 
-    # Fold passed. Use it as train and valid.
-    if args.fold:
-        train_data, val_data = folds.get_fold(
-            train_data,
-            args.fold,
-            cross_validation_ratio=(1 / args.num_folds_per_sweep),
-            num_valid_per_point=args.num_sweeps,
-            seed=args.seed,
-        )
-
     if args.up_weight != 0:
         assert args.aug_col is not None
         # Get points that should be upsampled
@@ -252,6 +242,20 @@ if __name__ == "__main__":
     parser.add_argument("--automatic_adjustment",
                         default=False,
                         action="store_true")
+    '''Namespace(alpha=0.2, aug_col='None', augment_data=False, automatic_adjustment=False, batch_size=64, btl=False,
+              confounder_names=['forest2water2'], dataset='CUB', fold=None, fraction=1.0, gamma=0.1,
+              generalization_adjustment='0.0', hinge=False, imbalance_ratio=None, joint_dro_alpha=1,
+              log_dir='results/CUB/CUB_sample_exp/ERM_upweight_0_epochs_300_lr_1e-05_weight_decay_1.0/model_outputs',
+              log_every=50, loss_type='erm', lr=1e-05, metadata_csv_name='metadata.csv',
+              metadata_path='results/CUB/CUB_sample_exp/metadata_aug.csv', minimum_variational_weight=0,
+              minority_fraction=None, model='resnet50', n_epochs=300, num_folds_per_sweep=5, num_sweeps=4,
+              project_name='spurious', q=0.7, resume=False, reweight_groups=False, robust_step_size=0.01,
+              root_dir='./cub', save_best=False, save_last=False, save_step=10, scheduler=False, seed=0,
+              shift_type='confounder', show_progress=False, target_name='waterbird_complete95',
+              train_from_scratch=False, up_weight=0, use_bert_params=0, use_normalized_loss=False, val_fraction=0.1,
+              wandb=True, weight_decay=1.0)
+              '''
+
     parser.add_argument("--robust_step_size", default=0.01, type=float)
     parser.add_argument("--joint_dro_alpha", default=1, type=float,
                          help=("Size param for CVaR joint DRO."
