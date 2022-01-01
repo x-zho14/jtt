@@ -58,6 +58,8 @@ class CSVBatchLogger:
         columns.append("avg_acc")
         columns.append("model_norm_sq")
         columns.append("reg_loss")
+        columns.append("worst_group_loss")
+        columns.append("worst_group_acc")
 
         self.path = csv_path
         self.file = open(csv_path, mode)
