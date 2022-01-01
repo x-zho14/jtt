@@ -146,6 +146,7 @@ def run_epoch(
 
 
         if (not is_training) or loss_computer.batch_count > 0:
+            print("check why 2 times print,", loss_computer.batch_count)
             run_stats = loss_computer.get_stats(model, args)
             if wandb is not None:
                 assert wandb_group is not None
