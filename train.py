@@ -57,6 +57,7 @@ def run_epoch(
     with torch.set_grad_enabled(is_training):
 
         for batch_idx, batch in enumerate(prog_bar_loader):
+            print("batch_idx", batch_idx)
             batch = tuple(t.to(device) for t in batch)
             x = batch[0]
             y = batch[1]
@@ -122,6 +123,7 @@ def run_epoch(
                     optimizer.step()
 
             if is_training and (batch_idx + 1) % log_every == 0:
+
                 run_stats = loss_computer.get_stats(model, args)
                 csv_logger.log(epoch, batch_idx, run_stats)
 
@@ -321,6 +323,8 @@ def train(
                 min_var_weight=args.minimum_variational_weight,
                 joint_dro_alpha=args.joint_dro_alpha,
             )
+            logger.write("\nEpoch [%d]:\n" % epoch)
+            logger.write(f"Testing:\n")
             run_epoch(
                 epoch,
                 model,
