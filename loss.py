@@ -226,6 +226,8 @@ class LossComputer:
         stats_dict["avg_actual_loss"] = self.avg_actual_loss.item()
         stats_dict["avg_per_sample_loss"] = self.avg_per_sample_loss.item()
         stats_dict["avg_acc"] = self.avg_acc.item()
+        stats_dict["worst_group_acc"] = self.avg_acc_group.min().item()
+        stats_dict["worst_group_loss"] = self.avg_loss_group.max().item()
 
         # Model stats
         if model is not None:
@@ -243,6 +245,10 @@ class LossComputer:
         )
         logger.write(
             f"Average sample loss: {self.avg_actual_loss.item():.3f}  \n")
+        logger.write(
+            f"Worst Group loss: {self.avg_group_loss.max().item():.3f}  \n")
+        logger.write(
+            f"Worst Group acc: {self.avg_group_acc.min().item():.3f}  \n")
         logger.write(f"Average acc: {self.avg_acc.item():.3f}  \n")
         for group_idx in range(self.n_groups):
             logger.write(
@@ -253,4 +259,5 @@ class LossComputer:
                 f"adjusted loss = {self.exp_avg_loss[group_idx] + self.adj[group_idx]/torch.sqrt(self.group_counts)[group_idx]:.3f}  "
                 f"adv prob = {self.adv_probs[group_idx]:3f}   "
                 f"acc = {self.avg_group_acc[group_idx]:.3f}\n")
+
         logger.flush()
