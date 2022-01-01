@@ -226,8 +226,8 @@ class LossComputer:
         stats_dict["avg_actual_loss"] = self.avg_actual_loss.item()
         stats_dict["avg_per_sample_loss"] = self.avg_per_sample_loss.item()
         stats_dict["avg_acc"] = self.avg_acc.item()
-        stats_dict["worst_group_acc"] = self.avg_acc_group.min().item()
-        stats_dict["worst_group_loss"] = self.avg_loss_group.max().item()
+        stats_dict["worst_group_acc"] = self.avg_group_acc.min().item()
+        stats_dict["worst_group_loss"] = self.avg_group_loss.max().item()
 
         # Model stats
         if model is not None:
