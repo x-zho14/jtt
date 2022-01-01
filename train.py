@@ -303,6 +303,8 @@ def train(
             wandb=wandb,
         )
 
+
+
         # Test set; don't print to avoid peeking
         if dataset["test_data"] is not None:
             test_loss_computer = LossComputer(
@@ -324,7 +326,7 @@ def train(
                 optimizer,
                 dataset["test_loader"],
                 test_loss_computer,
-                None,
+                logger,
                 test_csv_logger,
                 args,
                 is_training=False,
