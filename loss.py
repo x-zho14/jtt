@@ -56,7 +56,8 @@ class LossComputer:
         self.adv_probs = torch.ones(self.n_groups).cuda() / self.n_groups
         self.exp_avg_loss = torch.zeros(self.n_groups).cuda()
         self.exp_avg_initialized = torch.zeros(self.n_groups).byte().cuda()
-
+        self.best_worst_group_acc = 0
+        self.best_worst_group_acc_epoch = 0
         self.reset_stats()
 
     def loss(self, yhat, y, group_idx=None, is_training=False):
