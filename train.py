@@ -128,7 +128,7 @@ def run_epoch(
                 csv_logger.log(epoch, batch_idx, run_stats)
 
                 csv_logger.flush()
-                loss_computer.log_stats(logger, is_training)
+                loss_computer.log_stats(logger, is_training, epoch)
                 loss_computer.reset_stats()
                 if wandb is not None:
                     wandb_stats = {
@@ -162,7 +162,7 @@ def run_epoch(
 
             csv_logger.log(epoch, batch_idx, run_stats)
             csv_logger.flush()
-            loss_computer.log_stats(logger, is_training)
+            loss_computer.log_stats(logger, is_training, epoch)
             if is_training:
                 loss_computer.reset_stats()
 

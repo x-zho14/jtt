@@ -236,7 +236,7 @@ class LossComputer:
 
         return stats_dict
 
-    def log_stats(self, logger, is_training):
+    def log_stats(self, logger, is_training, epoch):
         if logger is None:
             return
 
@@ -249,6 +249,10 @@ class LossComputer:
             f"Worst Group loss: {self.avg_group_loss.max().item():.3f}  \n")
         logger.write(
             f"Worst Group acc: {self.avg_group_acc.min().item():.3f}  \n")
+        self.best_worst_group_acc = self.avg_group_acc.min().item() if self.avg_group_acc.min().item() > self.best_worst_group_acc else self.best_worst_group_acc
+        self.best_worst_group_acc_epoch = epoch if self.avg_group_acc.min().item() > self.best_worst_group_acc_epoch else self.best_worst_group_acc_epoch
+        logger.write(
+            f"Best Worst Group acc: {self.best_worst_group_acc:.3f} {self.best_worst_group_acc_epoch:.3f}  \n")
         logger.write(f"Average acc: {self.avg_acc.item():.3f}  \n")
         for group_idx in range(self.n_groups):
             logger.write(
