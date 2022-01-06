@@ -122,21 +122,21 @@ def run_epoch(
                     loss_main.backward()
                     optimizer.step()
 
-            if is_training and (batch_idx + 1) % log_every == 0:
-
-                run_stats = loss_computer.get_stats(model, args)
-                csv_logger.log(epoch, batch_idx, run_stats)
-
-                csv_logger.flush()
-                loss_computer.log_stats(logger, is_training, epoch)
-                loss_computer.reset_stats()
-                if wandb is not None:
-                    wandb_stats = {
-                        wandb_group + "/" + key: run_stats[key] for key in run_stats.keys()
-                    }
-                    wandb_stats["epoch"] = epoch
-                    wandb_stats["batch_idx"] = batch_idx
-                    wandb.log(wandb_stats)
+            # if is_training and (batch_idx + 1) % log_every == 0:
+            #
+            #     run_stats = loss_computer.get_stats(model, args)
+            #     csv_logger.log(epoch, batch_idx, run_stats)
+            #
+            #     csv_logger.flush()
+            #     loss_computer.log_stats(logger, is_training, epoch)
+            #     loss_computer.reset_stats()
+            #     if wandb is not None:
+            #         wandb_stats = {
+            #             wandb_group + "/" + key: run_stats[key] for key in run_stats.keys()
+            #         }
+            #         wandb_stats["epoch"] = epoch
+            #         wandb_stats["batch_idx"] = batch_idx
+            #         wandb.log(wandb_stats)
 
         if run_name is not None:
             save_dir = "/".join(csv_logger.path.split("/")[:-1])
