@@ -102,7 +102,6 @@ def get_transform_cub(model_type, train, augment_data):
             transforms.ToTensor(),
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
         ])
-        print("no augmentation")
     else:
         transform = transforms.Compose([
             transforms.RandomResizedCrop(
