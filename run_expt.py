@@ -146,6 +146,17 @@ def main(args):
     if args.wandb:
         wandb.watch(model)
 
+    def set_gpu(args, model):
+        assert torch.cuda.is_available(), "CPU-only experiments currently unsupported"
+        print(f"=> Parallelizing on {args.multigpu} gpus")
+        torch.cuda.set_device(args.multigpu[0])
+        model = torch.nn.DataParallel(model, device_ids=args.multigpu).cuda(
+            args.multigpu[0]
+        )
+        return model
+
+    set_gpu(args, model)
+
     logger.flush()
 
     ## Define the objective
@@ -292,6 +303,13 @@ if __name__ == "__main__":
     parser.add_argument("--num_folds_per_sweep", type=int, default=5)
     parser.add_argument("--num_sweeps", type=int, default=4)
     parser.add_argument("--q", type=float, default=0.7)
+    parser.add_argument("--q", type=float, default=0.7)
+    parser.add_argument(
+        "--multigpu",
+        default=None,
+        type=lambda x: [int(a) for a in x.split(",")],
+        help="Which GPUs to use for multigpu training",
+    )
 
     parser.add_argument(
         "--metadata_csv_name",
