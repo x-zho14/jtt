@@ -303,7 +303,6 @@ if __name__ == "__main__":
     parser.add_argument("--num_folds_per_sweep", type=int, default=5)
     parser.add_argument("--num_sweeps", type=int, default=4)
     parser.add_argument("--q", type=float, default=0.7)
-    parser.add_argument("--q", type=float, default=0.7)
     parser.add_argument(
         "--multigpu",
         default=None,
